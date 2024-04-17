@@ -5,7 +5,7 @@ import { handleLogError } from '../misc/Helpers'
 
 function Home() {
   const [numberOfUsers, setNumberOfUsers] = useState(0)
-  const [numberOfMovies, setNumberOfMovies] = useState(0)
+  const [numberOfFilms, setNumberOfFilms] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -15,11 +15,11 @@ function Home() {
         let response = await filmApi.numberOfUsers()
         const users = response.data
 
-        response = await filmApi.numberOfMovies()
-        const movies = response.data
+        response = await filmApi.numberOfFilms()
+        const films = response.data
 
         setNumberOfUsers(users)
-        setNumberOfMovies(movies)
+        setNumberOfFilms(films)
       } catch (error) {
         handleLogError(error)
       } finally {
@@ -54,7 +54,7 @@ function Home() {
           <Grid.Column textAlign='center'>
             <Segment color='purple'>
               <Statistic>
-                <Statistic.Value><Icon name='laptop' color='grey' />{numberOfMovies}</Statistic.Value>
+                <Statistic.Value><Icon name='laptop' color='grey' />{numberOfFilms}</Statistic.Value>
                 <Statistic.Label>Films</Statistic.Label>
               </Statistic>
             </Segment>

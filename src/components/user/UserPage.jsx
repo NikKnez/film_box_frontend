@@ -11,40 +11,40 @@ function UserPage() {
   const user = Auth.getUser()
   const isUser = user.data.rol[0] === 'USER'
 
-  const [movies, setMovies] = useState([])
-  const [movieTextSearch, setMovieTextSearch] = useState('')
-  const [isMoviesLoading, setIsMoviesLoading] = useState(false)
+  const [films, setFilms] = useState([])
+  const [filmTextSearch, setFilmTextSearch] = useState('')
+  const [isFilmsLoading, setIsFilmsLoading] = useState(false)
 
   useEffect(() => {
-    handleGetMovies()
+    handleGetFilms()
   }, [])
 
   const handleInputChange = (e, { name, value }) => {
-    if (name === 'movieTextSearch') {
-      setMovieTextSearch(value)
+    if (name === 'filmTextSearch') {
+      setFilmTextSearch(value)
     }
   }
 
-  const handleGetMovies = async () => {
-    setIsMoviesLoading(true)
+  const handleGetFilms = async () => {
+    setIsFilmsLoading(true)
     try {
-      const response = await filmApi.getMovies(user)
-      setMovies(response.data)
+      const response = await filmApi.getFilms(user)
+      setFilms(response.data)
     } catch (error) {
       handleLogError(error)
     } finally {
-      setIsMoviesLoading(false)
+      setIsFilmsLoading(false)
     }
   }
 
-  const handleSearchMovie = async () => {
+  const handleSearchFilm = async () => {
     try {
-      const response = await filmApi.getMovies(user, movieTextSearch)
-      const movies = response.data
-      setMovies(movies)
+      const response = await filmApi.getFilms(user, filmTextSearch)
+      const films = response.data
+      setFilms(films)
     } catch (error) {
       handleLogError(error)
-      setMovies([])
+      setFilms([])
     }
   }
 
@@ -55,11 +55,11 @@ function UserPage() {
   return (
     <Container>
       <FilmList
-        isMoviesLoading={isMoviesLoading}
-        movieTextSearch={movieTextSearch}
-        movies={movies}
+        isFilmsLoading={isFilmsLoading}
+        filmTextSearch={filmTextSearch}
+        films={films}
         handleInputChange={handleInputChange}
-        handleSearchMovie={handleSearchMovie}
+        handleSearchFilm={handleSearchFilm}
       />
     </Container>
   )
